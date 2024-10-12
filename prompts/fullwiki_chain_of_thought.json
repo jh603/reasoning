@@ -1,0 +1,15 @@
+"""
+Please answer this question based on only on the information provided by the documents below. You must first include a paragraph explaining your reasoning with citations, followed by a concise final answer to the question, and finally include the references you used to answer the question.
+
+Here is a sample response and the format you must follow in your response:
+    Explanation: The second sentence "The United States was founded in 1776" in the document titled "American History" tells us the year the US was founded. The fourth sentence "Washington was elected the first president the year the US was founded" in the document titled George Washington tells us that Washington was elected president the same year the US was founded. Therefore, the answer to the question 'What year was George Washington elected president' based on these documents is 1776.
+    Answer: 1776
+    References: [American History, 2], [George Washington, 4]
+
+Your final answer should be very short. For example, it may be a year, a simple yes or no, a person's name, etc.
+
+Question: {qa_pair["question"]}
+
+Documents: 
+{final_output}
+"""

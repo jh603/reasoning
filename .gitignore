@@ -1,0 +1,14 @@
+
+meta-llama/
+
+gtr_wikipedia_index.pkl
+.env
+data/*
+venv/
+
+/logs
+/src/__pycache__
+/src/logs
+/apex
+
+/src/utils/__pycache__

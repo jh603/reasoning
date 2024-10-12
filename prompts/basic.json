@@ -1,0 +1,12 @@
+"""
+Please answer this question concisely based on the provided documents below. You must also include the references you use to answer the question.
+
+Here is a sample response and the format you must follow in your response:
+    Answer: Yes
+    References: [Title1, 1], [Title3, 4]
+
+Question: {qa_pair["question"]}
+
+Documents: 
+{final_output}
+"""
