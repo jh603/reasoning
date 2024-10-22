@@ -1,4 +1,4 @@
-
+beam_models/
 meta-llama/
 
 gtr_wikipedia_index.pkl
@@ -12,3 +12,13 @@ venv/
 /apex
 
 /src/utils/__pycache__
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+/src/bright_dataset_experiments/bright_embeddings/
+
+
+/src/math/*
+!/src/math/*.py

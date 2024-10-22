@@ -5,9 +5,9 @@ class ModelFactory:
     @staticmethod
     def create_model(model_name: str, **kwargs):
         model_name = model_name.lower()
-        if model_name in ["meta-llama-3-8b-instruct"]:
-            return Llama3Model(model_path="meta-llama/Meta-Llama-3.1-8B-Instruct")
-        elif model_name in ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo-instruct"]:
+        if model_name in ["llama-3.1-8b-instruct"]:
+            return Llama3Model(model_path="meta-llama/Llama-3.1-8B-Instruct")
+        elif model_name in ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo-instruct", "code-davinci-003", "gpt-3.5-turbo"]:
             return OpenAIModel()
         elif model_name in ["deberta-v3-large"]:
             return DebertaQAModel(

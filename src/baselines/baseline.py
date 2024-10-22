@@ -59,7 +59,7 @@ def run_baseline(
     dataset = load_hotpotqa(dataset_name)
     predictions = {"answer": {}, "sp": {}}  # _id: answer  # _id: [[title, idx],...]
 
-    if model_name.lower() in ["meta-llama-3-8b-instruct", "gpt-4o-mini"]:
+    if model_name.lower() in ["llama-3.1-8b-instruct", "gpt-4o-mini"]:
         model_path = os.getenv(model_name.lower())
         model_instance = Model(model_name=model_name, model_path=model_path)
     else:
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         num_training_samples=args.num_training_samples,
     )
 
-    # python3 /home/cpp/jerryhuang/reasoning/src/baselines/baseline.py --dataset distractor --model meta-llama-3-8b-instruct --num_training_samples 1000
+    # python3 /home/cpp/jerryhuang/reasoning/src/baselines/baseline.py --dataset distractor --model llama-3.1-8b-instruct --num_training_samples 1000
     # python3 /home/cpp/jerryhuang/reasoning/src/baselines/baseline.py --dataset distractor --model gpt-4o-mini --num_training_samples 1000
 
     # python3 /home/cpp/jerryhuang/reasoning/src/baselines/baseline.py --dataset fullwiki --model meta-llama-3-8b-instruct --num_training_samples 1000

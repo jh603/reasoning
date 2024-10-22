@@ -20,9 +20,8 @@ class Llama3Model:
     def __init__(self, model_path: str):
         self.pipeline = transformers.pipeline(
             "text-generation",
-            model=model_path,
-            model_kwargs={"torch_dtype": torch.float16},
-            device=0,  # Adjust based on your hardware (e.g., -1 for CPU)
+            model='meta-llama/Llama-3.1-8B-Instruct',
+            device=0,
         )
         self.tokenizer = self.pipeline.tokenizer
         self.model = self.pipeline.model
@@ -62,35 +61,17 @@ class Llama3Model:
         temperature: float = 0.7,
         top_p: float = 0.9,
     ) -> str:
-        """
-        Generates a response based on the conversation history.
-
-        Args:
-            conversation_history (list): A list of message dictionaries representing the conversation history.
-            system_prompt (str): The system prompt to initialize the conversation.
-            max_tokens (int): Maximum number of tokens to generate.
-            temperature (float): Sampling temperature.
-            top_p (float): Nucleus sampling probability.
-
-        Returns:
-            str: The assistant's reply.
-        """
-        # Initialize the prompt with the system prompt
         messages = [{"role": "system", "content": system_prompt}]
 
-        # Append the conversation history
         for message in conversation_history:
             if message["role"] not in {"system", "user", "assistant"}:
                 raise ValueError(f"Unknown role: {message['role']}")
             messages.append({"role": message["role"], "content": message["content"]})
 
-        # Add the latest user query
-        # Assuming the last message is from the user
         prompt = self.tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
         )
 
-        # Generate the response
         outputs = self.pipeline(
             prompt,
             max_new_tokens=max_tokens,
@@ -99,12 +80,7 @@ class Llama3Model:
             top_p=top_p,
         )
 
-        # Extract the generated response
         generated_text = outputs[0]["generated_text"][len(prompt) :].strip()
-
-        # Optionally, append the assistant's response to the history
-        # conversation_history.append({"role": "assistant", "content": generated_text})
-
         return generated_text
 
 
@@ -116,23 +92,25 @@ class OpenAIModel:
         )
         self.system_prompt = SYSTEM_PROMPT_OPENAI
 
-    @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
+    @retry(wait=wait_random_exponential(min=0.5, max=60), stop=stop_after_attempt(6))
     def get_response(
         self,
         query: str,
         system_prompt: str = None,
-        model: str = "gpt-4o-mini",
+        model = 'gpt-3.5-turbo',
     ) -> str:
         if system_prompt is None:
             system_prompt = self.system_prompt
 
         response = self.openai_client.chat.completions.create(
             model=model,
+            # model='gpt-3.5-turbo',
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": query},
             ],
             temperature=0.7,
+            max_tokens=16385//10,
         )
 
         reply = response.choices[0].message.content
